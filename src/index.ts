@@ -8,7 +8,9 @@ import {reimbursementRouter} from './Routers/ReimbursementRouter';
 import { sessionMiddleware } from './MIddleware/SessionMiddleware';
 import { getUserByUsernamePassword } from './Repository/UserDataAccess';
 const app : Application = express();
-
+app.get('/new-endpoint', (req:Request,res:Response) => {
+    res.send('Webhooks worked');
+})
 app.use(bodyParser.json());
 app.use(sessionMiddleware)
 
