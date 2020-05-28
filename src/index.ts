@@ -7,10 +7,13 @@ import { userRouter } from './Routers/UserRouter';
 import {reimbursementRouter} from './Routers/ReimbursementRouter';
 import { sessionMiddleware } from './MIddleware/SessionMiddleware';
 import { getUserByUsernamePassword } from './Repository/UserDataAccess';
+import { corsFilter } from './MIddleware/CorsFilter';
 const app : Application = express();
 app.get('/new-endpoint', (req:Request,res:Response) => {
     res.send('Webhooks worked');
 })
+
+app.use(corsFilter)
 app.use(bodyParser.json());
 app.use(sessionMiddleware)
 
