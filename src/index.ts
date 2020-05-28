@@ -22,7 +22,7 @@ app.use(sessionMiddleware)
 app.post('/login',async (req:Request,res:Response) =>{
     let {username,password} = req.body;
     if(!username || !password){
-        res.status(400).send('Please include username and password fields for login')
+        res.status(401).send('Please include username and password fields for login')
     }else{
         try{
             const user : User = await getUserByUsernamePassword(username,password);
@@ -32,7 +32,7 @@ app.post('/login',async (req:Request,res:Response) =>{
             res.send(user);
         }catch(err){
             console.log(err.message)
-            res.status(400).send('Invalid Credentials')
+            res.status(401).send('Invalid Credentials')
         }
     }
 })
