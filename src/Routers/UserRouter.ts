@@ -16,7 +16,17 @@ userRouter.use('/:id',(req:Request,res:Response,next:NextFunction) =>{
         res.status(401).send('The incoming token has expired');
     }
 });
-
+userRouter.patch('/:id',async (req:Request,res:Response) => {
+    const id = +req.params.id;
+    let {username,password,first_name,last_name,email,role} = req.body;
+    if(!id || isNaN(id)){
+        res.status(400).send('Must have a valid id')
+    }else if(username || password || first_name || last_name || email || role){
+        res.json(await updateUser(id,username,password,first_name,last_name,email,role));
+    }else{
+        res.status(400).send('Must have a least one field to update a user');
+    }
+})
 userRouter.get('/:id', async (req:Request,res:Response) => {
     const id = +req.params.id;
     if(isNaN(id)){
